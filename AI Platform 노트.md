@@ -18,34 +18,34 @@
 
 
 * `application.properties` 파일에 설정 추가
-* pom.xml에 의존성 추가 - 5개
-  * jsp
-  * devtools
-  * json
+* `pom.xml`에 의존성 추가 - 5개
+  * `jsp`
+  * `devtools`
+  * `json`
 
 
 
-* views 폴더 생성
+* `views` 폴더 생성
 * `src/main/webapp` 폴더에 `WEB-INF` / `views` 폴더 추가
 
 
 
-* index.jsp 생성
+* `index.jsp` 생성
   * 각 `AI` 서비스를 사용하기 위한 메뉴 항목 하나씩 추가
-  * 컨트롤러에게 요청 -> 각 서비스마다 Service 클래스 생성해서 처리 -> `Naver AI API` 요청
+  * 컨트롤러에게 요청 -> 각 서비스마다 `Service` 클래스 생성해서 처리 -> `Naver AI API` 요청
   * 컨트롤러에서 뷰 페이지로 출력 <- 결과를 컨트롤러에게 반환 <- `Naver AI API` 결과 받음
 
 
 
-* 패키지 생성 : com.multi.aiservice
-* 컨트롤러 생성 : APIController
+* 패키지 생성 : `com.multi.aiservice`
+* 컨트롤러 생성 : `APIController`
 
 
 
 ----
 
-* Naver AI Platform 접속
-* Application 등록
+* `Naver AI Platform` 접속
+* `Application` 등록
 * 인증키 발급 (코드에서 사용)
 
 
@@ -69,9 +69,9 @@
 
 * 응답 예시 : `JSON` 형식
 
-  * key : faces :
-  * value : [ ] 리스트로 구성
-  * faces를 추출해서 리스트를 반복 (`for`문)하여 value 와 confidence 추출
+  * `key : faces :`
+  * `value` : `[ ]` 리스트로 구성
+  * `faces`를 추출해서 리스트를 반복 (`for`문)하여 `value` 와 `confidence` 추출
 
   
 
@@ -79,28 +79,28 @@
 
 * 변경할 내용
 
-  * clientID / clientSecret
-    * uploadFile : 파일 경로 및 파일명
+  * `clientID` / `clientSecret`
+    * `uploadFile` : 파일 경로 및 파일명
 
 * 출력 : `JSON` 형식의 문자열로 콘솔창에 출력
 
 
 
 * 이미지를 복사해서 다음 디렉터리에 저장
-* c:/ai/xxx.jpg : 1인 (여성/ 남성/ 연령별)
+* `c:/ai/xxx.jpg` : 1인 (여성/ 남성/ 연령별)
 * 2인 / 5인 구성된 이미지 준비
 
 
 
 #### 작성 클래스
 
-* CelebrityVO
+* `CelebrityVO`
 
-* CFRCelebrityService
+* `CFRCelebrityService`
 
-* APIController (이미 작성했음)
+* `APIController` (이미 작성했음)
 
-* index.jsp에 링크 추가 (요청 맵핑)
+* `index.jsp`에 링크 추가 (요청 맵핑)
 
 * 실행시켜서 콘솔 창에 결과 출력
 
@@ -114,14 +114,14 @@
 
 * 우리가 추출할 내용
 
-  * "faces"
+  * `"faces"
   * "celebrity"
   * "value" / "confidence"
   * "강동원" / 0.619254
 
 
 
-* `JSON` 형식의 문자열에서 "confidence" 와 "value" 추출해서
+* `JSON` 형식의 문자열에서 "`confidence`" 와 "`value`" 추출해서
 * `CelebrityVO`에 저장
 * 이 작업을 수행할 메소드 추가 : 서비스 클래스
 * `CFRCelebrityService` 클래스에 `jsonToVoList()` 메소드 추가
@@ -140,11 +140,11 @@
 
 ----
 
-* celebrityResult.jsp 페이지 윗부분에 (제목 위에) 파일 업로드 기능 추가
+* `celebrityResult.jsp` 페이지 윗부분에 (제목 위에) 파일 업로드 기능 추가
 
-* 파일을 선택하면 -> 서버 (c:/ai/폴더로 업로드)
+* 파일을 선택하면 -> 서버 (`c:/ai/`폴더로 업로드)
 
-  * `AI API` 호출할 때 ai 경로로 지정해서 서버에서 파일을 읽어서 전송할 수 있도록 기능 추가
+  * `AI API` 호출할 때 `ai` 경로로 지정해서 서버에서 파일을 읽어서 전송할 수 있도록 기능 추가
 
   
 
@@ -152,7 +152,7 @@
 
 #### 얼굴 감지
 
-* 입력받은 이미지로부터 얼굴을 감지하고 입력된 이미지에서 얼마나 많은 얼굴이 감지되었고, 각 얼굴이 어디에 어떤 크기로 위치하며 어떤 모습을 하고 있는지 반환
+> 입력받은 이미지로부터 얼굴을 감지하고 입력된 이미지에서 얼마나 많은 얼굴이 감지되었고, 각 얼굴이 어디에 어떤 크기로 위치하며 어떤 모습을 하고 있는지 반환
 
 
 
@@ -169,7 +169,7 @@
 
 (1) `API` 호출해서 콘솔창에 결과 출력
 
-* 서비스 클래스 추가 : CFRService
+* 서비스 클래스 추가 : `CFRService`
 
   * 메소드 추가 (`API` 호출해서 결과 받아서 콘솔창에 출력하는 메소드) : `clovaFaceRecog()`
 
@@ -177,8 +177,8 @@
 
 * `faceRecogResult.jsp`
 
-  * faceRecogResult 페이지
-  * index 페이지로 이동
+  * `faceRecogResult` 페이지
+  * `index` 페이지로 이동
 
   
 
@@ -207,3 +207,74 @@
  }]
 }
 ```
+
+
+
+------
+
+## OCR 실습 (Text OCR)
+
+* `OCR API` : https://api.ncloud-docs.com/docs/ai-application-service-ocr-ocr
+
+(1) 기본 : 서비스 `API` 호출 결과를 `JSON`형식 문자열로 출력
+
+ * `OCRService` 클래스 생성 : `clovaOCRService()` 메소드 추가
+    * `API` 코드를 `clovaOCRService()` 메소드에 붙여넣기
+    * `writeMultiPart()` 메소드는 전체 복사해서 `clovaOCRService()` 메소드 아래에 붙여 넣기
+      (즉, `OCRService` 클래스에 메소드 2개가 됨)
+ * `APIController`에 추가
+ * `index.jsp`에 링크 추가
+ * 실행해서 결과 출력 : 콘솔 창에서 확인
+ * `movie` 이미지 다른 폴더에 저장 (실행 시 `c:/ai` 폴더로 업로드)
+
+
+
+(2) `REST API` `@RestController` 추가
+
+ * 파일 업로드
+ * `Ajax`로 파일을 서버로 전달하고 결과 받아서 `view` 페이지 출력
+ * `ocrResult.jsp` (파일 업로드)
+ * `ocr.js` (`Ajax`)
+ * `AIResultController` (`@RestController`) : 컨트롤러 추가
+ * `@ComponentScan` (`AIResultController`) 추가
+ * 서비스 메소드 변경 (파일 이름 전달 받음)
+ * `APIController` 수정
+ * `index.jsp` 수정
+ * 실행 : 텍스트가 있는 이미지 파일을 업로드
+ * 결과 : 텍스트 출력
+
+
+
+----
+
+## Pose Estimation (포즈 인식)
+
+(1) 기본 : 서비스 `API` 호출 결과를 `JSON` 형식 문자열로 출력
+
+* `PoseEstimationService` 클래스 생성 : `poseEstimate()` 메소드 추가
+  * `API` 코드를 `poseEstimate()` 메소드에 붙여넣기
+* `APIController`에 추가
+* `index.jsp`에 링크 추가
+* 이미지 : `c:/ai/run.jpg`
+* 실행해서 결과 출력 : 콘솔창에서 확인
+
+
+
+(2) `REST API` `@RestController` 사용
+
+* `PoseVO` 생성 : `index`, `x`, `y`
+* `jsonToVOList()` 메소드 추가
+* 서비스 클래스 / 메소드 수정
+* `AIResultController` (`@RestController`) 에 추가
+* `poseResult.jsp` 생성 : 파일 업로드 / 결과 출력
+* `pose.js (Ajax)` : `formData` 보내고 / `result` 받고
+* (`drawCanvas` : 이미지 위에 추출한 좌표 (0~17)의 표시)
+* `index.jsp`에 추가
+* `APIController` 변경
+* 결과 확인
+
+
+
+* `resultDiv`에 출력
+  * 코 (0.356433, 02399328)
+  * 목 (0.356433, 02399328)
