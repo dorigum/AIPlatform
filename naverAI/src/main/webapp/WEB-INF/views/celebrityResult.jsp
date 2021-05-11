@@ -18,7 +18,6 @@
 			<input type="submit" value="결과 확인">
 		</form><br><br>
 		
-		
 		<h2>유명인 얼굴 인식 결과</h2>
 		
 		<table border="1" width="400">
