@@ -12,6 +12,10 @@
 		<a href="fileuploadCel">유명인 얼굴 인식</a><br><br>
 		<a href="fileuploadFace">얼굴 감지</a><br><br>
 		
+		<a href="ocr">OCR</a><br><br>
+		
+		<a href="pose">포즈 인식</a><br><br>
+		
 		<img src="/ai/song.JPG">
 	</body>
 </html>
