@@ -21,10 +21,13 @@ public class APIController {
 
 	@Autowired
 	private OCRService ocrService;
-	
+
 	@Autowired
 	private PoseEstimationService poseService;
 	
+	@Autowired
+	private ObjectDetectionService objService;
+
 	@RequestMapping("/")
 	public String index() {
 		return "index";
@@ -95,14 +98,25 @@ public class APIController {
 	 * public void clovaOCR() {
 	 * ocrService.clovaOCRService(); }
 	 */
-	
+
 	@RequestMapping("/ocr")
 	public String clovaOCR() {
 		return "ocrResult"; // 뷰페이지 이름
 	}
-	
+
 	@RequestMapping("/pose")
 	public String poseDetect() {
 		return "poseResult";
-	 }
+	}
+
+	/*
+	 * @RequestMapping("/object")
+	 * public void objectDetect() {
+	 * objService.objectDetect(); }
+	 */
+	
+	@RequestMapping("/object")
+	public String objectDetect() {
+		return "objectResult";
+	}
 }

@@ -17,6 +17,9 @@ public class AIRestController {
 
 	@Autowired
 	private PoseEstimationService poseService;
+	
+	@Autowired
+	private ObjectDetectionService objService;
 
 	@RequestMapping("/clovaOCR")
 	public String clovaOCR(@RequestParam("uploadFile") MultipartFile file) {
@@ -50,7 +53,7 @@ public class AIRestController {
 
 	@RequestMapping("/poseDetect")
 	public ArrayList<PoseVO> poseDetect(@RequestParam("uploadFile") MultipartFile file)
-										throws IllegalStateException, IOException{
+										throws IOException{
 		
 			//1. 파일 저장 경로 설정 : 실제 서비스되는 위치 (프로젝트 외부에 저장)
 			  String uploadPath =  "c:/ai/";
@@ -68,5 +71,27 @@ public class AIRestController {
 			  ArrayList<PoseVO> poseList = poseService.poseEstimate(filePathName);
 		
 		return poseList;
+	}
+	
+	@RequestMapping("/objectDetect")
+	public ArrayList<ObjectVO> objectDetect(@RequestParam("uploadFile") MultipartFile file)
+										throws IOException{
+		
+			//1. 파일 저장 경로 설정 : 실제 서비스되는 위치 (프로젝트 외부에 저장)
+			  String uploadPath =  "c:/ai/";
+			  
+			  //2.원본 파일 이름
+			  String originalFileName = file.getOriginalFilename();  
+			  
+			  //3. 파일 생성 
+			  String filePathName = uploadPath + originalFileName;
+			  File file1 = new File(filePathName);
+			  
+			  //4. 서버로 전송
+			  file.transferTo(file1);			  
+			  
+			  ArrayList<ObjectVO> objectList = objService.objectDetect(filePathName);
+		
+		return objectList;
 	}
 }
