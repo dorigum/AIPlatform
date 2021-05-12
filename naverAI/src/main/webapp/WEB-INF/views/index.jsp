@@ -16,6 +16,8 @@
 		
 		<a href="pose">포즈 인식</a><br><br>
 		
+		<a href="object">객체 탐지</a><br><br>
+		
 		<img src="/ai/song.JPG">
 	</body>
 </html>
