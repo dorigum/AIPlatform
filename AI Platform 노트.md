@@ -278,3 +278,33 @@
 * `resultDiv`에 출력
   * 코 (0.356433, 02399328)
   * 목 (0.356433, 02399328)
+
+
+
+-----
+
+## Object Detection (객체 탐지)
+
+(1) 기본 : 서비스 `API` 호출 결과를 `JSON` 형식 문자열로 출력
+
+* `ObjectDetectionService` 클래스 생성 : `objectDetect()` 메소드 추가
+  * `API` 코드 복사
+* `APIController`에 추가
+* `index.jsp`에 링크 추가
+* 이미지 : `c:/ai/animal2.jpg`
+* 실행해서 결과 출력 : 콘솔창에서 확인
+
+
+
+(2) `REST API` `@RestController` 사용
+
+* `ObjectVO` : `name`, `x1`, `y1`, `x2`, `y2`
+* `ObjectDetectionService` 클래스에 `jsonToVoList()` 메소드 추가
+  * `name`, `x1`, `y1`, `x2`, `y2` 값 추출해서 `VO`에 담아서 `List` 반환
+* `objectResult.jsp` 생성 : 파일 업로드 / 결과 출력
+* `object.js` (`Ajax`) : `formData` 보내고 / `result` 받고
+* (`drawCanvas` : 이미지 위의 탐지한 객체에 바운딩 박스 표시 (사각형 표시))
+* `index.jsp` (-> `APIController`)
+* `APIController` 변경
+* 결과 확인 : 사각형 그리기 어려우면 이 부분 하지 말고
+  * `name`, `x1`, `y1`, `x2`, `y2` 출력
