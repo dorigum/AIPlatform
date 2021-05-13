@@ -52,7 +52,6 @@ public class AIRestController {
 
 		return result;
 	}
-	
 
 	@RequestMapping("/poseDetect")
 	public ArrayList<PoseVO> poseDetect(@RequestParam("uploadFile") MultipartFile file)
