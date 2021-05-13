@@ -24,9 +24,12 @@ public class APIController {
 
 	@Autowired
 	private PoseEstimationService poseService;
-	
+
 	@Autowired
 	private ObjectDetectionService objService;
+
+	@Autowired
+	private STTService sttService;
 
 	@RequestMapping("/")
 	public String index() {
@@ -94,8 +97,7 @@ public class APIController {
 	}
 
 	/*
-	 * @RequestMapping("/clovaOCR")
-	 * public void clovaOCR() {
+	 * @RequestMapping("/clovaOCR") public void clovaOCR() {
 	 * ocrService.clovaOCRService(); }
 	 */
 
@@ -110,13 +112,21 @@ public class APIController {
 	}
 
 	/*
-	 * @RequestMapping("/object")
-	 * public void objectDetect() {
+	 * @RequestMapping("/object") public void objectDetect() {
 	 * objService.objectDetect(); }
 	 */
-	
+
 	@RequestMapping("/object")
 	public String objectDetect() {
 		return "objectResult";
+	}
+
+	/*
+	 * @RequestMapping("/stt") public void STT() { sttService.clovaSpeechToText(); }
+	 */
+	
+	@RequestMapping("/stt")
+	public String STT() {
+		return "sttResult";
 	}
 }

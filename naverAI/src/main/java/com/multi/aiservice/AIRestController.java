@@ -20,6 +20,9 @@ public class AIRestController {
 	
 	@Autowired
 	private ObjectDetectionService objService;
+	
+	@Autowired
+	private STTService sttService;
 
 	@RequestMapping("/clovaOCR")
 	public String clovaOCR(@RequestParam("uploadFile") MultipartFile file) {
@@ -93,5 +96,35 @@ public class AIRestController {
 			  ArrayList<ObjectVO> objectList = objService.objectDetect(filePathName);
 		
 		return objectList;
+	}
+	
+	@RequestMapping("/clovaSTT")
+	public String STT(@RequestParam("uploadFile") MultipartFile file,
+					  @RequestParam("language") String language) {
+		String result = "";
+
+		try {
+			// 1. 파일 저장 경로 설정 : 실제 서비스되는 위치 (프로젝트 외부에 저장)
+			String uploadPath = "c:/ai/";
+
+			// 2. 원본 파일 이름
+			String originalFileName = file.getOriginalFilename();
+
+			// 3. 파일 생성
+			String filePathName = uploadPath + originalFileName;
+			File file1 = new File(filePathName);
+
+			// 4. 서버로 전송
+			file.transferTo(file1);
+
+			result = sttService.clovaSpeechToText(filePathName, language);
+			System.out.println(result);
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return result;
 	}
 }
