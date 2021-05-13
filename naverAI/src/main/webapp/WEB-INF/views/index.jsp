@@ -18,6 +18,8 @@
 		
 		<a href="object">객체 탐지</a><br><br>
 		
+		<a href="stt">Speech To Text (음성을 텍스트로 변환)</a><br><br>
+		
 		<img src="/ai/song.JPG">
 	</body>
 </html>
