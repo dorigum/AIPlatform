@@ -30,6 +30,9 @@ public class APIController {
 
 	@Autowired
 	private STTService sttService;
+	
+	@Autowired
+	private TTSService ttsService;
 
 	@RequestMapping("/")
 	public String index() {
@@ -40,7 +43,7 @@ public class APIController {
 	public String fileuploadCel() {
 		return "celebrityResult";
 	}
-
+	
 	@RequestMapping("/clovaFaceCel")
 	public String cfrCelebrity(@RequestParam("uploadFile") MultipartFile file, Model model) throws IOException {
 
@@ -122,11 +125,24 @@ public class APIController {
 	}
 
 	/*
-	 * @RequestMapping("/stt") public void STT() { sttService.clovaSpeechToText(); }
+	 * @RequestMapping("/stt")
+	 * public void STT() {
+	 * sttService.clovaSpeechToText(); }
 	 */
 	
 	@RequestMapping("/stt")
 	public String STT() {
 		return "sttResult";
 	}
+	
+	/*
+	 * @RequestMapping("/tts")
+	 * public void TTS(){
+	 * ttsService.clovaTextToSpeech(); }
+	 */
+	
+	@RequestMapping("/tts")
+	 public String TTS() {
+	 return "ttsResult";
+	 }
 }
