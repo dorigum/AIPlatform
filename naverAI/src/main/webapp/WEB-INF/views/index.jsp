@@ -20,6 +20,8 @@
 		
 		<a href="stt">Speech To Text (음성을 텍스트로 변환)</a><br><br>
 		
+		<a href="tts">Text To Speech (텍스트를 음성으로 변환)(음성 파일(mp3)반환)</a><br><br>
+		
 		<img src="/ai/song.JPG">
 	</body>
 </html>
