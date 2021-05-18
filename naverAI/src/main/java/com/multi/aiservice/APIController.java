@@ -145,4 +145,19 @@ public class APIController {
 	 public String TTS() {
 	 return "ttsResult";
 	 }
+	
+		/*
+		 * @RequestMapping("/chatbot") public void chatbot() { String result =
+		 * ChatbotService.main("넌 누구니?"); System.out.println(result); }
+		 */
+	
+	@RequestMapping("/chatbot")
+	 public String chatbot() {
+	 return "chatForm"; // chatForm.jsp
+	 }
+	
+	@RequestMapping("voiceRecord")
+	 public String voiceRecord() {
+	 return "voiceRecord"; // voiceRecord.jsp
+	 }
 }

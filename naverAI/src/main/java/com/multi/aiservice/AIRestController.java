@@ -160,4 +160,10 @@ public class AIRestController {
 
 		return result; // 음성 파일 이름 변환
 	}
+	
+	@RequestMapping("/chatbotCall")
+	public String chatbot(@RequestParam("message") String message) {
+		String result = ChatbotService.main(message);
+		return result;
+	}
 }
