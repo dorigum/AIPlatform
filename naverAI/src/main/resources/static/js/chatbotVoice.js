@@ -34,19 +34,19 @@ $(function() {
             }
 
             stop.onclick = () => {	//정지 버튼 클릭 시
-                mediaRecorder.stop();	//녹음 정지                       
+                mediaRecorder.stop(); //녹음 정지                       
                 record.style.background = "";
                 record.style.color = "";
             }
             
             mediaRecorder.onstop = e => {
                 
-                const clipName = "voiceMsg";  // 파일명 : 확장자 안 붙었음
+                const clipName = "voiceMsg";
 				//태그 3개 생성
                 const clipContainer = document.createElement('article');                     
                 //const audio = document.createElement('audio');
                 const a = document.createElement('a');
-				// 속성/ 컨텐츠 설정
+				// 속성 컨텐츠 설정
                 //clipContainer.classList.add('clip');
                 //audio.setAttribute('controls', '');                        
                 //clipContainer.appendChild(audio);
