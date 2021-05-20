@@ -146,10 +146,10 @@ public class APIController {
 	 return "ttsResult";
 	 }
 	
-		/*
-		 * @RequestMapping("/chatbot") public void chatbot() { String result =
-		 * ChatbotService.main("넌 누구니?"); System.out.println(result); }
-		 */
+	/*
+	 * @RequestMapping("/chatbot") public void chatbot() { String result =
+	 * ChatbotService.main("넌 누구니?"); System.out.println(result); }
+	 */
 	
 	@RequestMapping("/chatbot")
 	 public String chatbot() {
@@ -159,5 +159,10 @@ public class APIController {
 	@RequestMapping("voiceRecord")
 	 public String voiceRecord() {
 	 return "voiceRecord"; // voiceRecord.jsp
+	 }
+	
+	@RequestMapping("chatbotVoice")
+	 public String chatbotVoice() {
+	 return "chatbotVoice"; // chatbotVoice.jsp
 	 }
 }

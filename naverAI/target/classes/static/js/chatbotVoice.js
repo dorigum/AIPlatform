@@ -1,12 +1,13 @@
 /**
- * chatbot.js
+ * chatbotVoice.js
  */
 
 $(function() {
 	// 웰컴 메시지 받기 위해서 message 란에 입력 받기 전에
 	// 빈 값으로 서버에 전송하고 웰컴 메시지 받음
-	callAjax(); // message 값 없이 서버로 전송
 	$('audio').hide();
+	// 웰컴 메시지 출력하기 위해 파일명 없이 호출
+	fileUpload(new Blob(), null);
 	
 	//-------------------------------------------------------------
 	/* 음성 질문 녹음 */
@@ -41,11 +42,11 @@ $(function() {
             mediaRecorder.onstop = e => {
                 
                 const clipName = "voiceMsg";  // 파일명 : 확장자 안 붙었음
-				// 태그 3개 생성
+				//태그 3개 생성
                 const clipContainer = document.createElement('article');                     
                 //const audio = document.createElement('audio');
                 const a = document.createElement('a');
-				// 속성 컨텐츠 설정
+				// 속성/ 컨텐츠 설정
                 //clipContainer.classList.add('clip');
                 //audio.setAttribute('controls', '');                        
                 //clipContainer.appendChild(audio);
@@ -54,7 +55,7 @@ $(function() {
                 soundClips.appendChild(clipContainer);                        
 				
                 // chunks에 저장된 녹음 데이터를 audio 양식으로 설정
-               	// audio.controls = true;
+                //audio.controls = true;
                 const blob = new Blob(chunks, {
                     'type': 'audio/mp3 codecs=opus'
                 }); 
@@ -67,110 +68,48 @@ $(function() {
                 a.href=audioURL;                   
                 a.download = clipName;                      
                 //a.innerHTML = "DOWN"
-				a.click(); // 다운로드 폴더에 저장하도록 클릭 이벤트 발생
+				a.click(); // 다운로드 폴더에 저장하도록 클릭 이벤트 발생		
 				
-				// 서버로 업로드: 다운로드 후 1초 대기
+				// 서버로 업로드: mp3 다운로드 시간 대기하므로 다운로드 후 1초 대기
 				/*setTimeout(function(){
 					fileUpload(clipName + ".mp3"); //파일명
 				}, 1000);*/
-				// 파일 다운로드 하지 않으니까 1초 대기할 필요 없음
-				fileUpload(blob, clipName); // 파일 데이터와 파일명 전달
+				//파일 다운로드 하지 않으니까 1초 대기할 필요 없음
+                fileUpload(blob, clipName);
 								
-            } //mediaRecorder.onstop
+            }//mediaRecorder.onstop
 
             // 녹음 시작시킨 상태가 되면 chunks에 녹음 데이터를 저장하라 
             mediaRecorder.ondataavailable = e => {
-            chunks.push(e.data)
+                chunks.push(e.data)
             }
             
         })
         .catch(err => {
-         console.log('The following error occurred: ' + err)
+            console.log('The following error occurred: ' + err)
         })
-	}
+}
 	
 	//-------------------------------------------------------------
 	
 	/* 서버에 업로드 */
-	function fileUpload(blob, clipName){
-		// 파일 업로드 부분 추가
+	function fileUpload(blob, clipName){	    
 		var formData = new FormData();
 		formData.append('uploadFile', blob, clipName+".mp3");
 		
-		$.ajax({
-			type:"post",
-			url:"clovaSTT2",
-			data: formData, // 폼 데이터 전송
-			processData:false, // 필수
-			contentType:false, // 필수
-			success:function(result){
-				/* chatBox에 보낸 메시지 추가 (동적 요소 추가) */ /* 넌 누구니? */
-				$('#chatBox').append('<div class="msgBox send"><span>' +
-									 result + '</span></div><br>');
-									 
-			// 챗봇에게 전달
-			$('#message').val(result);
-			callAjax();
-			$('#message').val('');
-			},
-			error:function(e){
-				alert("에러 발생" + e);
-			}
-		});
-	}
-	
-	//-------------------------------------------------------------
-	
-	$('#chatForm').on('submit', function(event) {
-		event.preventDefault(); // submit 후에 reload 안되게
-
-		/* chatBox에 보낸 메시지 추가 (동적 요소 추가) */ /* 넌 누구니? */
-		$('#chatBox').append('<div class="msgBox send"><span>' +
-							 $('#message').val() + '</span></div><br>');
-
-		callAjax();
-
-		/* 입력란 비우기*/
-		$('#message').val('');
-
-	}); // submit 끝
-
-	function callAjax() {
-		$.ajax({
-			type: "post",
-			url: "chatbotCall",
-			data: { message: $('#message').val() },
-			success: function(result) {
-				/* chatBox에 받은 메시지 출력 (챗봇의 답변) */
-				$('#chatBox').append('<div class="msgBox receive">챗봇<br><span>' +
-									 result + '</span></div><br><br>');
-
-				/* 스크롤해서 올리기 */
-				$('#chatBox').scrollTop($('#chatBox').prop("scrollHeight"));
-
-				// 챗봇으로부터 받은 텍스트 답변을 음성으로 변환하기 위해 TTS 호출
-				callAjaxTTS(result);
+    	// 녹음된 mp3파일 전송하고 반환된 텍스트(result)를 챗봇 서버에 전달
+    	$.ajax({    		
+			type:"post",	
+			url: "chatbotOnlyVoice", // 통신할 url						
+			data: formData, // 전송할 데이터 -> 파일명 : voiceMsg.mp3
+			processData: false,
+    		contentType: false,
+			success: function(result) {					
+				$('audio').prop("src", '/ai/'+ result)[0].play();
 			},
 			error: function(e) {
-				alert("에러 발생 : " + e);
+				alert("에러가 발생했습니다 : " + e);
 			}
 		});
 	}
-	
-	//-------------------------------------------------------
-	function callAjaxTTS(result){
-		$.ajax({
-			type: "post",
-			url: "chatbotTTS",
-			data: { message:result },
-			success: function(result) {
-				$('audio').prop("src", '/ai/' + result)[0].play();
-				//$('audio').hide()
-			},
-			error: function(e) {
-				alert("에러 발생 : " + e);
-			}
-		});
-	}
-	
 }); //  $(function() 끝

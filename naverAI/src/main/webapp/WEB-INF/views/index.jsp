@@ -24,6 +24,8 @@
 		
 		<a href="chatbot">챗봇</a><br><br>
 		
+		<a href="chatbotVoice">챗봇 : 음성 채팅</a><br><br>
+		
 		<a href="voiceRecord">음성 녹음 테스트</a><br><br>
 		
 		<img src="/ai/song.JPG">

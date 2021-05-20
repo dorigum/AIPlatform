@@ -25,9 +25,22 @@
 		<div>
 			<form id="chatForm" method="post">
 			<input type="text" id="message" name="message" size="30" placeholder="질문을 입력하세요">
-			<input type="submit" id="btnSubmit" value="전송">
+			<input type="submit" id="btnSubmit" value="전송"><br><br>
+			
+			파일 : <input type="file" id="uploadFile" name="uploadFile">
+			<input type="submit" value="결과 확인">
+
 			</form>
-		</div>
+		</form>
+		</div><br>
+		
+		<button id="record">녹음</button>
+		<button id="stop">정지</button>
+		<div id="sound-clips"></div>
+		
+		<div>
+			<audio preload="auto" controls></audio>
+		</div>	
 		
 		<br><br>
 		<a href="/">index 페이지로 이동</a>
