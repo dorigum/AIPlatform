@@ -590,7 +590,7 @@
 
 [#4]
 
-### 음성으로 질문하면 챗봇에서 텍스트로 답변 보내기
+### 음성으로 질문하면 챗봇에서 텍스트로 답변 보내기 (채팅창에 텍스트도 출력) + 음성
 
 (1) 녹음 기능 : 웹 페이지에서 녹음
 
@@ -609,7 +609,112 @@
 
 
 
+* 질문 녹음 : 다운로드 폴더에 저장
+* 음성 파일을 텍스트로 변환 : `STT`
+* `mp3` 파일명 전달
+* 다운로드 폴더에 있는 파일을 서버로 전송
+* `STT` : 텍스트 변환
+* 변환된 텍스트를 질문으로 챗봇에게 전달
+* 챗봇으로부터 답변 받아서 채팅창에 출력
+
+
+
+* `chatForm.jsp`에 녹음 버튼 추가
+* `chatbot.js`
+  * 녹음 기능
+  * 파일 업로드: `STT` (`clovaSTT2`)
+  * 챗봇에게 질문 전달하고 답변 받기
+  * 채팅창에 출력
+* `AIRestController`에 추가 : `clovaSTT2`
+* `STTService` 클래스에 메소드 추가 : `chatbotSpeechToText()` : `Kor`
+  * 파일 경로 이름 전달 : `filePathName`
+  * 텍스트로 변환된 녹음 파일은 삭제 (다운로드에 있는 음성 파일 삭제) : `voiceFile.delete()`
+* 결과 확인
+  * 음성으로 질문 (녹음)하고 텍스트로 답변 받기
+  * 음성 질문 내용/답변도 채팅창에 출력
+
+
+
+----
+
+[#5]
+
+### 음성으로 질문하면 음성으로 답변하기 (텍스트 답변 -> 음성 파일 변환 : TTS)
+
+* 챗봇으로부터 받은 답변을 `TTS` 기능을 사용해서 음성으로 변환하여 출력
+* 받은 답변을 `TTS` 전달하기 위한 Ajax 추가
+  * `callAjaxTTS()` 함수 추가
+  * 텍스트 `message` 전달하고
+  * 답변 받으면 `<audio>` 플레이 (동적 생성하지 말고 `jsp` 에 `<audio>` 태그 배치 (나중에 숨기기))
+
+
+
+* `TTSService` 클래스에 메소드 추가
+  * `chatbotTextToSpeech`(`String message`)
+  * 파일 이름이 아닌 메시지 전달
+
+
+
+* `chatForm.jsp` 에 `<audio>` 태그 추가
+* `hide()` 사용해서 숨기기
+
+
+
+* `chatbot.js`에 추가 (`callAjaxTTS()` 함수)
+* `TTSService` 클래스에 메소드 추가
+* `AIRestController` 에 추가 : `chatbotTTS`
+* 결과 확인
+
+
+
 ---
+
+[#6]
+
+### 채팅창 없이 음성 채팅 (음성 질문 -> 음성 답변)
+
+* 중간에 클라이언트 출력 없고 서버에서 한번에 다 처리하고 결과만 클라이언트로 전송
+
+
+
+* `chatbotVoice.jsp` 새로 생성
+  * 채팅창 없음
+  * 음성 메시지 녹음
+  * `<audio>` 태그
+
+
+
+* `chatbot.js`
+  * `fileUpload()`
+  * url : `chatbotOnlyVoice`
+  * `<audio>` 플레이만
+  * `chatBox` 삭제
+
+
+
+* `AIRestController`
+  * 모두 전달하고 받음
+  * `STT` -> `chatbot` -> `TTS`
+
+
+
+* `index.jsp` 에 추가
+* 결과 확인
+
+
+
+* 웰컴 메시지 출력되도록 추가
+* `chatbotVoice.jsp`
+  * 파일명 없이 `fileUpload("");`
+
+
+
+* `AIRestController`
+  * `result = ""` 부분 추가
+
+
+
+-----
 
 ### 대화 모델 연습
 
