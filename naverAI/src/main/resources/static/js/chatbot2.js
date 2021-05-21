@@ -1,5 +1,5 @@
 /**
- * chatbot2.js
+ * chatbot2.js 
  */
 
 $(function() {
