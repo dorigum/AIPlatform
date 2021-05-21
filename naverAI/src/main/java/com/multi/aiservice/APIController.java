@@ -165,4 +165,9 @@ public class APIController {
 	 public String chatbotVoice() {
 	 return "chatbotVoice"; // chatbotVoice.jsp
 	 }
+	
+	@RequestMapping("/chatbot2")
+	 public String chatbot2() {
+	 return "chatForm2"; // chatForm2.jsp
+	 }
 }

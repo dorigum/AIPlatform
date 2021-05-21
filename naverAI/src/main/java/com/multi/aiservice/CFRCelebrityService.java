@@ -23,8 +23,8 @@ public class CFRCelebrityService {
 	// 지금은 단순히 콘솔 창에 출력
 	public ArrayList<CelebrityVO> clovaFaceRecogCel(String filePathName) {
 		StringBuffer reqStr = new StringBuffer();
-        String clientId = "syf9iq5za8";//애플리케이션 클라이언트 아이디값";
-        String clientSecret = "Xa1xTD6YGKyX4mMzqVVaHlJ9XdMgQB6KrBihSGww";//애플리케이션 클라이언트 시크릿값";
+        String clientId = "";//애플리케이션 클라이언트 아이디값";
+        String clientSecret = "";//애플리케이션 클라이언트 시크릿값";
         ArrayList<CelebrityVO> celList = new ArrayList<CelebrityVO>();
         
         try {

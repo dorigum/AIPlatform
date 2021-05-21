@@ -1,5 +1,5 @@
 /**
- * chatbot.js
+ * chatbot2.js
  */
 
 $(function() {
@@ -32,8 +32,8 @@ $(function() {
                 record.style.color = "black";
             }
 
-            stop.onclick = () => {	//정지 버튼 클릭 시
-                mediaRecorder.stop();	//녹음 정지                       
+            stop.onclick = () => {	// 정지 버튼 클릭 시
+                mediaRecorder.stop();	// 녹음 정지                       
                 record.style.background = "";
                 record.style.color = "";
             }
@@ -120,7 +120,6 @@ $(function() {
 	}
 	
 	//-------------------------------------------------------------
-	
 	$('#chatForm').on('submit', function(event) {
 		event.preventDefault(); // submit 후에 reload 안되게
 
@@ -128,7 +127,6 @@ $(function() {
 		if($('#message').val() != ""){
 		$('#chatBox').append('<div class="msgBox send"><span>' +
 							 $('#message').val() + '</span></div><br>');
-
 		}
 		
 		callAjax();
@@ -137,26 +135,64 @@ $(function() {
 		$('#message').val('');
 
 	}); // submit 끝
-
+	//-------------------------------------------------------
+	// 이미지/멀티링크 답변 포함된 답변 처리
 	function callAjax() {
 		$.ajax({
 			type: "post",
-			url: "chatbotCall",
+			url: "chatbotCallJSON",
 			data: { message: $('#message').val() },
-			success: function(result) {
-				/* chatBox에 받은 메시지 출력 (챗봇의 답변) */
-				$('#chatBox').append('<div class="msgBox receive"><br>챗봇<br><span>' +
-									 result + '</span></div><br><br>');
-
+			dataType:'json',
+			success: function(result) { // JSON 형식 그대로 받음
+				var bubbles = result.bubbles;
+				for(var b in bubbles){
+					if(bubbles[b].type=='text'){ // 기본 답변인 경우
+						/* chatBox에 받은 메시지 출력 (챗봇의 답변) */
+						$('#chatBox').append('<div class="msgBox receive"><br>챗봇<br><span>' +
+									 		bubbles[b].data.description + '</span></div><br><br>');
+						// 챗봇으로부터 받은 텍스트 답변을 음성으로 변환하기 위해 TTS 호출
+						callAjaxTTS(bubbles[b].data.description);
+					} else if(bubbles[b].type=='template'){ // 이미지 답변 또는 멀티링크 답변인 경우
+						if(bubbles[b].data.cover.type=='image'){ // 이미지인 경우
+							// 이미지 출력
+							$('#chatBox').append("<img src=''' + bubbles[b].data.cover.data.imageUrl + ''' alt='이미지 없음'>	");
+							
+							// 이미지만 있는 경우 / 이미지+텍스트가 있는 경우
+							if(bubbles[b].data.contentTable==null){ // 이미지만 있는 경우 url 추출
+								$('#chatBox').append("<a href='" + bubbles[b].data.cover.data.action.data.url + "' target='_blank'> " +
+								bubbles[b].data.cover.data.action.data.url + "</a><br>");
+								
+							} else{ // 이미지+텍스트인 경우 텍스트와 url 추출
+								// 텍스트만 추출하고 멀티링크와 공통되는 contentTable은 아래에서 다중 for문 사용해서 url 추출
+								$('#chatBox').append("<p>" + bubbles[b].data.cover.data.description + "</p>");
+								// 챗봇으로부터 받은 텍스트 답변을 음성으로 변환하기 위해 TTS 호출
+								callAjaxTTS(bubbles[b].data.cover.data.description);
+							}
+						} else if(bubbles[b].data.cover.type=='text'){ // 멀티링크인 경우
+							$('#chatBox').append("<p>" + bubbles[b].data.cover.data.description + "</p>");
+								// 챗봇으로부터 받은 텍스트 답변을 음성으로 변환하기 위해 TTS 호출
+								callAjaxTTS(bubbles[b].data.cover.data.description);
+						}
+						
+						// 이미지/멀티링크 답변 공통 (contentTable 포함)
+						for(var ct in bubbles[b].data.contentTable){
+							var ct_data = bubbles[b].data.contentTable[ct];
+							for(var ct_d in data){
+								$('#chatBox').append("<a href='" + ct_data[ct_d].data.data.action.data.url + "' target='_blank'> " +
+								ct_data[ct_d].data.data.action.data.url + "</a><br>");
+							}
+						}
+					}
+					
+				} // bubbles for문 종료	
+				
 				/* 스크롤해서 올리기 */
 				$('#chatBox').scrollTop($('#chatBox').prop("scrollHeight"));
-
-				// 챗봇으로부터 받은 텍스트 답변을 음성으로 변환하기 위해 TTS 호출
-				callAjaxTTS(result);
+				
 			},
-			error: function(e) {
+			error:function(e){
 				alert("에러 발생 : " + e);
-			}
+			}			
 		});
 	}
 	
@@ -175,5 +211,4 @@ $(function() {
 			}
 		});
 	}
-	
-}); //  $(function() 끝
+}); // $(function()) 끝

@@ -125,9 +125,12 @@ $(function() {
 		event.preventDefault(); // submit 후에 reload 안되게
 
 		/* chatBox에 보낸 메시지 추가 (동적 요소 추가) */ /* 넌 누구니? */
+		if($('#message').val() != ""){
 		$('#chatBox').append('<div class="msgBox send"><span>' +
 							 $('#message').val() + '</span></div><br>');
 
+		}
+		
 		callAjax();
 
 		/* 입력란 비우기*/
@@ -142,7 +145,7 @@ $(function() {
 			data: { message: $('#message').val() },
 			success: function(result) {
 				/* chatBox에 받은 메시지 출력 (챗봇의 답변) */
-				$('#chatBox').append('<div class="msgBox receive">챗봇<br><span>' +
+				$('#chatBox').append('<div class="msgBox receive"><br>챗봇<br><span>' +
 									 result + '</span></div><br><br>');
 
 				/* 스크롤해서 올리기 */

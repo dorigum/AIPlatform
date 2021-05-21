@@ -22,9 +22,11 @@
 		
 		<a href="tts">Text To Speech (텍스트를 음성으로 변환)(음성 파일(mp3)반환)</a><br><br>
 		
-		<a href="chatbot">챗봇</a><br><br>
+		<a href="chatbot">챗봇 : 기본 답변만 포함</a><br><br>
 		
 		<a href="chatbotVoice">챗봇 : 음성 채팅</a><br><br>
+		
+		<a href="chatbot2">챗봇 : 이미지/멀티링크 답변 포함</a><br><br>
 		
 		<a href="voiceRecord">음성 녹음 테스트</a><br><br>
 		

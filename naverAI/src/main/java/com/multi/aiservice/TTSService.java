@@ -19,8 +19,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class TTSService {
 	public String clovaTextToSpeech(String filePathName, String language) {
-		String clientId = "syf9iq5za8";// 애플리케이션 클라이언트 아이디값";
-		String clientSecret = "Xa1xTD6YGKyX4mMzqVVaHlJ9XdMgQB6KrBihSGww";// 애플리케이션 클라이언트 시크릿값";
+		String clientId = "";// 애플리케이션 클라이언트 아이디값";
+		String clientSecret = "";// 애플리케이션 클라이언트 시크릿값";
 		String voiceFileName = "";
 
 		try {

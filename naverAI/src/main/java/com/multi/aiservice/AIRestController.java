@@ -243,4 +243,10 @@ public class AIRestController {
 		String result = ChatbotService.main(message);
 		return result;
 	}
+	
+	@RequestMapping("/chatbotCallJSON")
+	public String chatbotCallJSON(@RequestParam("message") String message) {
+		String result = ChatbotService.mainJSON(message);
+		return result; // JSON 형식 그대로 반환
+	}
 }

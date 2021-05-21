@@ -21,8 +21,8 @@ import org.json.JSONObject;
 
 public class ChatbotService {
 	public static String main(String voiceMessage) {
-		String apiURL = "https://575d94b01a4949faa161bc91fbc7b9a3.apigw.ntruss.com/custom/v1/4640/f0f9495fb3f8e327d8ca629e2a1273c65c7f6b9d6b5e40451fb536c15d85485a";
-		String secretKey = "VXh6bldJWlBBc011TXBqZU9NSHN5QndPUk9LS1RCRnQ=";
+		String apiURL = "";
+		String secretKey = "";
 
 		String chatbotMessage = "";
 
@@ -77,6 +77,67 @@ public class ChatbotService {
 
 		return chatbotMessage;
 	}
+	
+	
+	public static String mainJSON(String voiceMessage) {
+		String apiURL = "https://575d94b01a4949faa161bc91fbc7b9a3.apigw.ntruss.com/custom/v1/4640/f0f9495fb3f8e327d8ca629e2a1273c65c7f6b9d6b5e40451fb536c15d85485a";
+		String secretKey = "VXh6bldJWlBBc011TXBqZU9NSHN5QndPUk9LS1RCRnQ=";
+
+		String chatbotMessage = "";
+
+		try {
+			// String apiURL = "https://ex9av8bv0e.apigw.ntruss.com/custom_chatbot/prod/";
+
+			URL url = new URL(apiURL);
+
+			String message = getReqMessage(voiceMessage);
+			System.out.println("##" + message);
+
+			String encodeBase64String = makeSignature(message, secretKey);
+
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con.setRequestMethod("POST");
+			con.setRequestProperty("Content-Type", "application/json;UTF-8");
+			con.setRequestProperty("X-NCP-CHATBOT_SIGNATURE", encodeBase64String);
+
+			// post request
+			con.setDoOutput(true);
+			DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+			wr.write(message.getBytes("UTF-8"));
+			wr.flush();
+			wr.close();
+			int responseCode = con.getResponseCode();
+
+			BufferedReader br;
+
+			if (responseCode == 200) { // Normal call
+				System.out.println(con.getResponseMessage());
+
+				BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+				String decodedString;
+				while ((decodedString = in.readLine()) != null) {
+					chatbotMessage = decodedString;
+				}
+				// chatbotMessage = decodedString;
+				in.close();
+				
+				System.out.println(chatbotMessage); // 전달받은 결과 출력
+				System.out.println(chatbotMessage.getClass()); // String 타입
+				// 다음 변환 메소드 사용 안함
+				//System.out.println(chatbotMessage.toString());
+				
+				//chatbotMessage = jsonToString(chatbotMessage);
+
+			} else { // Error occurred
+				chatbotMessage = con.getResponseMessage();
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		// JSON 형식 문자열 그대로
+		return chatbotMessage;
+	}
+	
 
 	public static String jsonToString(String jsonStr) {
 		String resultText = "";

@@ -21,8 +21,8 @@ public class OCRService {
 
 		String result = "";
 
-		String apiURL = "https://c0beeab119e6453ba48ed2e20e458d72.apigw.ntruss.com/custom/v1/8642/1d5deb675dec7f624cbd23a006ab64cbc216cba69553bed124bd7797d208b733/general";
-		String secretKey = "b0xmdkRMT0ROTXVEcU5jZ3pkd0NYbmZPdFFpUXJDb28=";
+		String apiURL = "";
+		String secretKey = "";
 		String imageFile = filePathName;
 
 		try {

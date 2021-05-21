@@ -22,8 +22,8 @@ public class CFRService { // 얼굴 감지
 	public ArrayList<FaceVO> clovaFaceRecog(String filePathName) {
 		ArrayList<FaceVO> faceList = new ArrayList<FaceVO>();
 		StringBuffer reqStr = new StringBuffer();
-		String clientId = "syf9iq5za8";// 애플리케이션 클라이언트 아이디값";
-		String clientSecret = "Xa1xTD6YGKyX4mMzqVVaHlJ9XdMgQB6KrBihSGww";// 애플리케이션 클라이언트 시크릿값";
+		String clientId = "";// 애플리케이션 클라이언트 아이디값";
+		String clientSecret = "";// 애플리케이션 클라이언트 시크릿값";
 
 		try {
 			String paramName = "image"; // 파라미터명은 image로 지정

@@ -35,11 +35,13 @@
                     mediaRecorder.onstop = e => {
                         
                         const clipName = "voiceMsg"; // 파일명 : 확장자 안 붙었음
+                        
 						//태그 3개 생성
                         const clipContainer = document.createElement('article');                     
                         const audio = document.createElement('audio');
                         const a = document.createElement('a');
-						// 속성/ 컨텐츠 설정
+                        
+						// 속성 컨텐츠 설정
                         clipContainer.classList.add('clip');
                         audio.setAttribute('controls', '');                        
                         clipContainer.appendChild(audio);
@@ -47,7 +49,7 @@
                         clipContainer.appendChild(a);
                         soundClips.appendChild(clipContainer);                        
 						
-                        //chunks에 저장된 녹음 데이터를 audio 양식으로 설정
+                        // chunks에 저장된 녹음 데이터를 audio 양식으로 설정
                         audio.controls = true;
                         const blob = new Blob(chunks, {
                             'type': 'audio/mp3 codecs=opus'
@@ -57,14 +59,14 @@
                         const audioURL = URL.createObjectURL(blob);
                         audio.src = audioURL;
                         a.href=audio.src;
-                       //blob:http://localhost:8011/6377d19d-2ca8-49b1-a37f-068d602ceb60    
+                        //blob:http://localhost:8011/6377d19d-2ca8-49b1-a37f-068d602ceb60    
                         a.href=audio.src;                     
                         a.download = clipName;                      
-                       //a.innerHTML = "DOWN"
+                        //a.innerHTML = "DOWN"
 						a.click(); // 다운로드 폴더에 저장하도록 클릭 이벤트 발생						
-                    }//mediaRecorder.onstop
+                    } //mediaRecorder.onstop
 
-                    //녹음 시작시킨 상태가 되면 chunks에 녹음 데이터를 저장하라 
+                    // 녹음 시작시킨 상태가 되면 chunks에 녹음 데이터를 저장하라 
                     mediaRecorder.ondataavailable = e => {
                         chunks.push(e.data)
                     }

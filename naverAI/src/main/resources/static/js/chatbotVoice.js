@@ -74,10 +74,10 @@ $(function() {
 				/*setTimeout(function(){
 					fileUpload(clipName + ".mp3"); //파일명
 				}, 1000);*/
-				//파일 다운로드 하지 않으니까 1초 대기할 필요 없음
+				// 파일 다운로드 하지 않으니까 1초 대기할 필요 없음
                 fileUpload(blob, clipName);
 								
-            }//mediaRecorder.onstop
+            } //mediaRecorder.onstop
 
             // 녹음 시작시킨 상태가 되면 chunks에 녹음 데이터를 저장하라 
             mediaRecorder.ondataavailable = e => {

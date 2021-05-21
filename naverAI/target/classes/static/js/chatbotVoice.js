@@ -34,19 +34,19 @@ $(function() {
             }
 
             stop.onclick = () => {	//정지 버튼 클릭 시
-                mediaRecorder.stop();	//녹음 정지                       
+                mediaRecorder.stop(); //녹음 정지                       
                 record.style.background = "";
                 record.style.color = "";
             }
             
             mediaRecorder.onstop = e => {
                 
-                const clipName = "voiceMsg";  // 파일명 : 확장자 안 붙었음
+                const clipName = "voiceMsg";
 				//태그 3개 생성
                 const clipContainer = document.createElement('article');                     
                 //const audio = document.createElement('audio');
                 const a = document.createElement('a');
-				// 속성/ 컨텐츠 설정
+				// 속성 컨텐츠 설정
                 //clipContainer.classList.add('clip');
                 //audio.setAttribute('controls', '');                        
                 //clipContainer.appendChild(audio);
@@ -74,10 +74,10 @@ $(function() {
 				/*setTimeout(function(){
 					fileUpload(clipName + ".mp3"); //파일명
 				}, 1000);*/
-				//파일 다운로드 하지 않으니까 1초 대기할 필요 없음
+				// 파일 다운로드 하지 않으니까 1초 대기할 필요 없음
                 fileUpload(blob, clipName);
 								
-            }//mediaRecorder.onstop
+            } //mediaRecorder.onstop
 
             // 녹음 시작시킨 상태가 되면 chunks에 녹음 데이터를 저장하라 
             mediaRecorder.ondataavailable = e => {
