@@ -794,3 +794,117 @@ public static String main(String voiceMessage) {
 
 
 변경된 빌드->빌드->서비스 배포->연동
+
+
+
+----
+
+### MySQL 다운로드 및 설치
+
+* 사용자 생성
+* 테이블 생성
+* 스프링 부트 프로젝트에서
+  * `dependency` 추가
+  * `DB` 연동 설정
+  * 시간대 설정 변경
+
+
+
+* https://www.mysql.com/
+  * MySQL Community (GPL) Downloads »
+  * MySQL Community Server
+  * No thanks, just start my download.
+  * 3306
+
+
+
+* 스키마 생성 : `springdb` (소문자)
+* 사용자 생성 : `Users and Privileges`
+* `Connection`
+
+
+
+### 오라클 vs MySQL 문법 차이
+
+* 시간 설정
+* `시퀀스`
+* `Rownum`
+
+
+
+----
+
+## 일반적인 데이터베이스 구조 - 4계층
+
+* 인스턴스 - 데이터베이스 (여러 개) - 스키마 (여러 개) - 테이블 (여러 개)
+  * (인스턴스 : DMS 실행 단위 (`프로세스` / `DB 서버`))
+  * 스키마 : 데이터베이스 구조와 제약조건을 명시한 것
+
+
+
+## 오라클 데이터베이스 구조 - 4계층
+
+* 인스턴스 - 데이터베이스 (1개) - 스키마 (여러 개) - 테이블 (여러 개)
+
+
+
+## MySQL 데이터베이스 구조 - 3계층
+
+* 인스턴스 - 스키마 (여러 개) - 테이블 (여러 개)
+  * 데이터베이스 없음 : 데이터베이스와 스키마가 동일한 의미로 사용
+
+
+
+```sql
+CREATE TABLE product (
+            prdNo VARCHAR(10) NOT NULL PRIMARY KEY,
+            prdName VARCHAR(30) ,
+            prdPrice INT(10),           
+            prdCompany VARCHAR(50),
+            prdStock INT(5)
+         );        
+         
+  INSERT INTO product VALUES('1001', '세탁기', 100000, '삼성', 10);    
+  INSERT INTO product VALUES('1002', '냉장고', 120000, 'LG', 3);
+  INSERT INTO product VALUES('1003', '프린터', 300000, 'HP', 5);    
+    
+  SELECT * FROM product;
+
+```
+
+
+
+```
+SELECT @@GLOBAL.time_zone, @@SESSION.time_zone;
+```
+
+```
+SET GLOBAL time_zone='+9:00';
+SET time_zone='+9:00';
+```
+
+
+
+-----
+
+#### 1번
+
+* SstTest
+
+
+
+#### 2번 : 스프링 부트 프로젝트 (기본)
+
+* 프로젝트명 : ttsTest
+* 패키지명 : com.multi.ttsTest
+
+
+
+* 클래스 추가 : TtsTest
+  * main() 포함
+  * Java API 코드 복사
+  * id/secret 입력
+  * STT() 메소드로 추가 - 코드 복사
+  * jsonToString() 메소드 추가
+  * sample2.mp3 저장
+
